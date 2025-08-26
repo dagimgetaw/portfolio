@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "./provide";
 import { ThemeClientWrapper } from "./ThemeClientWrapper";
 import { Poppins, Sacramento } from "next/font/google";
+import Script from "next/script";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -79,6 +80,17 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-C436WFRZQV"
+        ></Script>
+        <Script id="google-analytics">
+          {`  window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-C436WFRZQV');`}
+        </Script>
       </head>
 
       <body className={`${poppins.variable} ${sacramento.variable}`}>
