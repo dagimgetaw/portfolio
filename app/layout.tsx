@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dagim's Portfolio",
     description:
-      "Full-stack developer portfolio of Dagim Getaw – React, Node, TypeScript, and more.",
+      "Dagim Getaw is a passionate Ethiopian software engineer with expertise in modern web development, machine learning, AI, and full-stack technologies..",
     images: ["/og-image.png"],
     creator: "@dagimdev",
   },
