@@ -59,16 +59,13 @@ const ProjectItem = memo(
                 Private
               </button>
             ) : item.deploy ? (
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <span
                 className="flex items-center px-3 py-2 rounded-full bg-purple transition-colors text-white text-xs font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
                 aria-label={`View ${item.title} live demo`}
                 onClick={(e) => e.stopPropagation()}
               >
                 Live Demo
-              </a>
+              </span>
             ) : (
               <button
                 className="flex items-center px-3 py-2 rounded-full bg-gray-700 text-gray-400 text-xs font-medium cursor-not-allowed"
@@ -115,27 +112,6 @@ const ProjectItem = memo(
               </div>
 
               <div className="flex space-x-3">
-                {!item.private && (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                    aria-label={`View ${item.title} source code on GitHub`}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Image
-                      src={Assets.gg}
-                      alt="GitHub icon"
-                      width={16}
-                      height={16}
-                      className="w-4 h-4"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </a>
-                )}
-
                 {item.private ? (
                   <button
                     className="flex items-center px-3 py-2 rounded-full bg-gray-800 text-gray-400 text-xs font-medium cursor-not-allowed"
@@ -145,23 +121,20 @@ const ProjectItem = memo(
                     Private
                   </button>
                 ) : item.deploy ? (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <span
                     className="flex items-center px-3 py-2 rounded-full bg-purple transition-colors text-gray-800 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
                     aria-label={`View ${item.title} live demo`}
                     onClick={(e) => e.stopPropagation()}
                   >
                     Live Demo
-                  </a>
+                  </span>
                 ) : (
                   <button
                     className="flex items-center px-3 py-2 rounded-full bg-gray-700 text-gray-400 text-xs font-medium cursor-not-allowed"
                     disabled
                     aria-label="Demo only - no live version available"
                   >
-                    Demo Only
+                    Source Code
                   </button>
                 )}
               </div>
@@ -231,11 +204,11 @@ const Project = () => {
             <Image
               src={Assets.arrow}
               alt="Arrow icon"
-              className="ms-2"
               width={10}
               height={10}
               loading="lazy"
               decoding="async"
+              className="size-3 ms-2"
             />
           </a>
         </div>
