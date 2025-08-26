@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dagim's Portfolio",
     description:
-      "Explore Dagim Getaw's full-stack web development projects, React/Node.js skills, and open-source contributions.",
+      "Dagim Getaw is a passionate Ethiopian software engineer with expertise in modern web development, machine learning, AI, and full-stack technologies.",
     url: "https://dagim.dev",
     siteName: "Dagim.dev",
     images: [
