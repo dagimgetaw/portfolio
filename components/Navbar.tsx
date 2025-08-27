@@ -14,6 +14,14 @@ const NavBar = () => {
   }, []);
 
   useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
@@ -87,7 +95,9 @@ const NavBar = () => {
                   onClick={(e) => handleNavClick(e, link)}
                   className="cursor-pointer"
                 >
-                  <span>{name}</span>
+                  <span className="hover:text-purple focus-visible:text-purple transition-colors duration-200 font-medium">
+                    {name}
+                  </span>
                   <span className="underline absolute left-0 bottom-0 w-0 group-hover:w-full transition-[width] duration-300 h-px bg-purple" />
                 </a>
               </li>
@@ -130,42 +140,39 @@ const NavBar = () => {
             />
           </div>
         </button>
-
         {mobileMenuOpen && (
           <div
-            className="mobile-menu fixed inset-0 bg-black/90 backdrop-blur-sm z-40 sm:hidden"
+            className="mobile-menu fixed top-0 left-0 w-screen h-screen bg-black/90 backdrop-blur-sm z-40 sm:hidden flex flex-col items-center justify-center"
             role="dialog"
             id="mobile-menu"
             aria-modal="true"
           >
-            <div className="flex flex-col items-center justify-center h-full space-y-8">
-              <nav className="text-center">
-                <ul className="space-y-6">
-                  {navLinks.map(({ link, name }) => (
-                    <li key={name} className="group">
-                      <a
-                        href={link}
-                        className="relative inline-block text-xs font-text text-white hover:text-purple focus-visible:text-purple transition-colors duration-200 font-medium cursor-pointer"
-                        onClick={(e) => handleNavClick(e, link)}
-                      >
-                        {name}
-                        <span className="absolute left-0 -bottom-1 h-px w-0 bg-purple-400 transition-all duration-300 group-hover:w-full" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+            <nav className="text-center">
+              <ul className="space-y-6">
+                {navLinks.map(({ link, name }) => (
+                  <li key={name} className="group">
+                    <a
+                      href={link}
+                      className="relative inline-block text-xs font-text text-white hover:text-purple focus-visible:text-purple transition-colors duration-200 font-medium cursor-pointer"
+                      onClick={(e) => handleNavClick(e, link)}
+                    >
+                      {name}
+                      <span className="underline absolute left-0 bottom-0 w-0 group-hover:w-full transition-[width] duration-300 h-px bg-purple" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-              <div className="pt-4">
-                <a
-                  href="https://www.upwork.com/freelancers/~0131ed92dbfad66547"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <HoverBorderGradient>Upwork</HoverBorderGradient>
-                </a>
-              </div>
+            <div className="pt-6">
+              <a
+                href="https://www.upwork.com/freelancers/~0131ed92dbfad66547"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <HoverBorderGradient>Upwork</HoverBorderGradient>
+              </a>
             </div>
           </div>
         )}

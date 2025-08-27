@@ -52,7 +52,7 @@ const ProjectItem = memo(
 
             {item.private ? (
               <button
-                className="flex items-center px-3 py-2 rounded-full bg-gray-800 text-gray-400 text-xs font-medium cursor-not-allowed"
+                className="flex items-center px-3 py-2 rounded-full bg-gray-800 text-gray-400 text-[10px] sm:text-xs font-medium cursor-not-allowed"
                 disabled
                 aria-label="Project is private"
               >
@@ -60,7 +60,7 @@ const ProjectItem = memo(
               </button>
             ) : item.deploy ? (
               <span
-                className="flex items-center px-3 py-2 rounded-full bg-purple transition-colors text-white text-xs font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
+                className="flex items-center px-3 py-2 rounded-full bg-purple transition-colors text-white text-[10px] sm:text-xs font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
                 aria-label={`View ${item.title} live demo`}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -68,7 +68,7 @@ const ProjectItem = memo(
               </span>
             ) : (
               <button
-                className="flex items-center px-3 py-2 rounded-full bg-gray-700 text-gray-400 text-xs font-medium cursor-not-allowed"
+                className="flex items-center px-3 py-2 rounded-full bg-gray-700 text-gray-400 text-[10px] sm:text-xs font-medium cursor-not-allowed"
                 disabled
                 aria-label="Demo only - no live version available"
               >
@@ -93,7 +93,7 @@ const ProjectItem = memo(
                 {item.iconLists.map((icon: string, index: number) => (
                   <div
                     key={`${item.id}-icon-${index}`}
-                    className="border border-white/[.2] rounded-full lg:w-9 lg:h-9 w-8 h-8 flex justify-center items-center"
+                    className="border border-white/[.2] bg-white/[.2] rounded-full lg:w-9 lg:h-9 w-8 h-8 flex justify-center items-center"
                     style={{
                       transform: `translateX(-${5 * index + 2}px)`,
                     }}
@@ -114,7 +114,7 @@ const ProjectItem = memo(
               <div className="flex space-x-3">
                 {item.private ? (
                   <button
-                    className="flex items-center px-3 py-2 rounded-full bg-gray-800 text-gray-400 text-xs font-medium cursor-not-allowed"
+                    className="flex items-center px-3 py-2 rounded-full bg-gray-800 text-gray-400 text-[10px] sm:text-xs font-medium cursor-not-allowed"
                     disabled
                     aria-label="Project is private"
                   >
@@ -122,7 +122,7 @@ const ProjectItem = memo(
                   </button>
                 ) : item.deploy ? (
                   <span
-                    className="flex items-center px-3 py-2 rounded-full bg-purple transition-colors text-gray-800 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
+                    className="flex items-center px-3 py-2 rounded-full bg-purple transition-colors text-gray-800 text-[10px] sm:text-xs font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
                     aria-label={`View ${item.title} live demo`}
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -130,7 +130,7 @@ const ProjectItem = memo(
                   </span>
                 ) : (
                   <button
-                    className="flex items-center px-3 py-2 rounded-full bg-gray-700 text-gray-400 text-xs font-medium cursor-not-allowed"
+                    className="flex items-center px-3 py-2 rounded-full bg-gray-700 text-gray-400 text-[10px] sm:text-xs font-medium cursor-not-allowed"
                     disabled
                     aria-label="Demo only - no live version available"
                   >
@@ -177,7 +177,7 @@ const Project = () => {
         </header>
 
         <div
-          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3  gap-20 p-4 items-center justify-center max-w-7xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3  gap-20 p-4 items-center justify-center max-w-7xl mx-auto"
           role="list"
           aria-label="Project showcase"
         >
