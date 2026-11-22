@@ -144,7 +144,7 @@ const jsonLd = {
       "@id": `${site.url}/#mezgeb`,
       name: "Mezgeb",
       url: "https://mezgeb.io",
-      description: "Open-source project under Atronsa.",
+      description: "Open-source double-entry ledger with offline sync and cryptographically signed transactions.",
       founder: { "@id": `${site.url}/#person` },
       parentOrganization: { "@id": `${site.url}/#atronsa` },
       sameAs: mezgebRepos.map((r) => r.link),

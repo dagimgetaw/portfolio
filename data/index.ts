@@ -33,7 +33,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: "Mezgeb",
-    description: "Open-source project under Atronsa",
+    description: "Double-entry ledger with offline sync and cryptographically signed transactions",
     tag: "Live",
     link: "https://mezgeb.io",
   },

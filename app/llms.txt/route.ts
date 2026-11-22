@@ -21,7 +21,7 @@ ${site.name} is a ${site.role.toLowerCase()} based in ${site.location}. ${site.c
 ## Roles
 
 - Founder & CEO of [Atronsa](https://atronsa.com): offline-first contactless payments for Ethiopia
-- Founder and open-source contributor of [Mezgeb](https://mezgeb.io): open-source project under Atronsa
+- Founder and open-source contributor of [Mezgeb](https://mezgeb.io): open-source double-entry ledger with offline sync and cryptographically signed transactions, part of Atronsa
 
 ## Contact
 
