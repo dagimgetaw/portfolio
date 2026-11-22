@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { z } from "zod";
-import emailjs from "@emailjs/browser";
 
 const contactSchema = z.object({
   fullname: z
@@ -88,6 +87,8 @@ export default function ContactForm() {
 
     setStatus("sending");
     try {
+      // Loaded on demand so EmailJS isn't part of the initial page JavaScript.
+      const { default: emailjs } = await import("@emailjs/browser");
       await emailjs.sendForm(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
