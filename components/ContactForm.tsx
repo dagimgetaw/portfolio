@@ -19,6 +19,7 @@ const contactSchema = z.object({
 });
 
 type Field = keyof z.infer<typeof contactSchema>;
+type Errors = Partial<Record<Field, string>>;
 type Status = "idle" | "sending" | "sent" | "error";
 
 const empty = { fullname: "", email: "", message: "" };
@@ -29,34 +30,61 @@ const inputClass =
   "transition-colors focus:border-fg focus:outline-none aria-[invalid=true]:border-error";
 const errorClass = "not-italic text-error";
 
+const fieldOrder: Field[] = ["fullname", "email", "message"];
+
+function validateField(name: Field, value: string): string | undefined {
+  const result = contactSchema.shape[name].safeParse(value);
+  return result.success ? undefined : result.error.issues[0]?.message;
+}
+
 export default function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState(empty);
-  const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
+  const [errors, setErrors] = useState<Errors>({});
+  const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
   const [status, setStatus] = useState<Status>("idle");
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const name = e.target.name as Field;
+    const { value } = e.target;
     setValues((v) => ({ ...v, [name]: value }));
+    // Re-validate live only after the user has left the field once,
+    // so they aren't shown errors while still typing for the first time.
+    if (touched[name]) {
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+    }
     if (status !== "idle") setStatus("idle");
+  };
+
+  const onBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const name = e.target.name as Field;
+    setTouched((t) => ({ ...t, [name]: true }));
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, e.target.value) }));
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors({});
 
     const result = contactSchema.safeParse(values);
     if (!result.success) {
-      const fieldErrors: Partial<Record<Field, string>> = {};
+      const fieldErrors: Errors = {};
       for (const issue of result.error.issues) {
         const key = issue.path[0] as Field;
         fieldErrors[key] ??= issue.message;
       }
       setErrors(fieldErrors);
+      setTouched({ fullname: true, email: true, message: true });
+      const firstInvalid = fieldOrder.find((f) => fieldErrors[f]);
+      if (firstInvalid) {
+        (formRef.current?.elements.namedItem(firstInvalid) as HTMLElement | null)?.focus();
+      }
       return;
     }
+    setErrors({});
 
     setStatus("sending");
     try {
@@ -68,6 +96,7 @@ export default function ContactForm() {
       );
       setStatus("sent");
       setValues(empty);
+      setTouched({});
     } catch (err) {
       console.error(err);
       setStatus("error");
@@ -92,9 +121,15 @@ export default function ContactForm() {
           autoComplete="name"
           value={values.fullname}
           onChange={onChange}
+          onBlur={onBlur}
           aria-invalid={!!errors.fullname}
+          aria-describedby={errors.fullname ? "fullname-error" : undefined}
         />
-        {errors.fullname && <em className={errorClass}>{errors.fullname}</em>}
+        {errors.fullname && (
+          <em id="fullname-error" className={errorClass}>
+            {errors.fullname}
+          </em>
+        )}
       </label>
 
       <label className={fieldClass}>
@@ -106,9 +141,15 @@ export default function ContactForm() {
           autoComplete="email"
           value={values.email}
           onChange={onChange}
+          onBlur={onBlur}
           aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
         />
-        {errors.email && <em className={errorClass}>{errors.email}</em>}
+        {errors.email && (
+          <em id="email-error" className={errorClass}>
+            {errors.email}
+          </em>
+        )}
       </label>
 
       <label className={fieldClass}>
@@ -119,9 +160,15 @@ export default function ContactForm() {
           rows={4}
           value={values.message}
           onChange={onChange}
+          onBlur={onBlur}
           aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "message-error" : undefined}
         />
-        {errors.message && <em className={errorClass}>{errors.message}</em>}
+        {errors.message && (
+          <em id="message-error" className={errorClass}>
+            {errors.message}
+          </em>
+        )}
       </label>
 
       <input type="hidden" name="timestamp" value={new Date().toISOString()} />
