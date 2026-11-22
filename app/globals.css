@@ -1,64 +1,89 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-html,
-body {
-  overflow-x: hidden;
-  scrollbar-width: none;
+/* Dark mode follows next-themes' data-theme attribute. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Two colors per theme. Components use the Tailwind names below
+   (bg-bg, text-fg, text-muted, border-line, text-error). */
+:root {
+  --bg: #ebebea;
+  --fg: #121313;
+  --muted: #6d6f6f;
+  --line: #cfd0cf;
+  --error: #b42318;
+  --gutter: max(16px, 3vw);
+  color-scheme: light;
 }
 
-body::-webkit-scrollbar {
-  display: none;
+:root[data-theme="dark"] {
+  --bg: #111212;
+  --fg: #ececeb;
+  --muted: #8b8d8d;
+  --line: #2a2c2c;
+  --error: #f97066;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-error: var(--error);
+
+  --font-sans: var(--font-inter-tight), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+
+  --text-base: 0.9375rem;
+  --text-base--line-height: 1.45;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.4;
+
+  /* About / Contribute lead sentence */
+  --text-big: clamp(2.25rem, 6vw, 4.5rem);
+  --text-big--line-height: 1.08;
+  --text-big--letter-spacing: -0.03em;
+
+  /* "Drop me a line" */
+  --text-display: clamp(3.25rem, 8.5vw, 8.5rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.045em;
+
+  /* Hero headline */
+  --text-hero: clamp(4.25rem, 15vw, 14rem);
+  --text-hero--line-height: 0.86;
+  --text-hero--letter-spacing: -0.045em;
+}
+
+/* Page container: max width plus a side gutter that clears phone notches. */
+@utility wrap {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --radius: 0.5rem;
-
-    --font-sans: "Mona Sans", sans-serif;
-    --font-logo: "Sacramento", cursive;
-    --font-text: "Poppins", serif;
-  }
-
-  * {
-    @apply border-border outline-ring/50 !scroll-smooth;
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-bg font-sans text-base text-fg antialiased;
   }
 
-  button {
-    @apply active:outline-none;
-  }
-}
-
-@layer utilities {
-  .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline outline-1 outline-offset-4 outline-fg;
   }
 
-  .black-gradient {
-    background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    * {
+      transition: none !important;
+    }
   }
 }
