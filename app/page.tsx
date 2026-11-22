@@ -1,5 +1,6 @@
 import ThemeToggle from "@/components/ThemeToggle";
 import ContactForm from "@/components/ContactForm";
+import MobileNav from "@/components/MobileNav";
 import {
   experiences,
   mezgebRepos,
@@ -49,9 +50,9 @@ export default function Home() {
   return (
     <>
       <header className="sticky top-0 z-10 bg-bg">
-        <div className="wrap grid grid-cols-[1fr_auto] items-center py-[22px] md:grid-cols-[1fr_auto_1fr]">
+        <div className="wrap relative grid grid-cols-[1fr_auto] items-center py-[22px] lg:grid-cols-[1fr_auto_1fr]">
           <a href="#top">{site.name}</a>
-          <nav aria-label="Sections" className="hidden gap-7 md:flex">
+          <nav aria-label="Sections" className="hidden gap-7 lg:flex">
             {navItems.map((item) => (
               <a
                 key={item.link}
@@ -62,23 +63,26 @@ export default function Home() {
               </a>
             ))}
           </nav>
-          <ThemeToggle />
+          <div className="-my-2 flex items-center gap-3 justify-self-end">
+            <ThemeToggle />
+            <MobileNav items={navItems} />
+          </div>
         </div>
       </header>
 
       <main id="top">
         {/* Fills the first screen (minus the ~66px header); headline sits at the bottom. */}
         <div className="wrap relative flex min-h-[calc(100svh-66px)] flex-col justify-end pt-24 pb-[clamp(32px,5vw,72px)]">
-          <h1 className="m-0 text-hero font-normal">
+          <h1 className="m-0 text-hero font-normal break-words">
             <span className="block">{site.headline[0]}</span>
             <span className="block">{site.headline[1]}</span>
           </h1>
           <p
             className={
-              "mt-5 mb-0 max-w-[18em] leading-[1.4] " +
-              "min-[900px]:absolute min-[900px]:mt-0 min-[900px]:w-[40em] " +
-              "min-[900px]:right-[max(var(--gutter),env(safe-area-inset-right,0px))] " +
-              "min-[900px]:bottom-[calc(clamp(32px,5vw,72px)+0.4em)]"
+              "mt-5 mb-0 max-w-[22em] leading-[1.4] " +
+              "xl:absolute xl:mt-0 xl:w-[24em] " +
+              "xl:right-[max(var(--gutter),env(safe-area-inset-right,0px))] " +
+              "xl:bottom-[calc(clamp(32px,5vw,72px)+0.4em)]"
             }
           >
             {site.caption}
@@ -170,9 +174,14 @@ export default function Home() {
         <Section id="contact" label="Contact" aside="Usually replies within a day">
           <div className="mt-8 grid grid-cols-1 items-start gap-[clamp(32px,6vw,96px)] md:grid-cols-2">
             <div>
-              <h2 className="m-0 text-display font-normal">
-                Drop me
-                <br />a line&nbsp;&rarr;
+              {/* Stacked (below md): one line with a down arrow pointing at the form.
+                  Side by side: two lines with a right arrow. */}
+              <h2 className="m-0 whitespace-nowrap text-display font-normal max-md:text-[11vw]">
+                Drop me <br className="hidden md:inline" />a line&nbsp;
+                <span aria-hidden="true">
+                  <span className="md:hidden">&darr;</span>
+                  <span className="hidden md:inline">&rarr;</span>
+                </span>
               </h2>
               <a
                 className="mt-5 inline-block text-muted transition-colors hover:text-fg"
@@ -187,11 +196,11 @@ export default function Home() {
       </main>
 
       <footer>
-        <div className="wrap flex flex-wrap justify-between gap-4 border-t border-line pt-7 pb-9 text-muted">
+        <div className="wrap flex flex-col gap-4 border-t border-line pt-7 pb-[max(2.25rem,env(safe-area-inset-bottom))] items-center text-center text-muted sm:flex-row sm:justify-between sm:text-left">
           <span>
             &copy; {new Date().getFullYear()} {site.name}
           </span>
-          <nav aria-label="Social" className="flex gap-6">
+          <nav aria-label="Social" className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             {socialLinks.map((s) => (
               <a
                 key={s.name}
