@@ -1,5 +1,13 @@
 export const site = {
   name: "Dagim Getaw",
+  url: "https://dagim.dev",
+  role: "Software Engineer",
+  // Used for the page title, search results and social previews.
+  title: "Dagim Getaw — Founder & CEO of Atronsa, Founder of Mezgeb",
+  description:
+    "Dagim Getaw is the founder and CEO of Atronsa, building offline-first contactless payments for Ethiopia, and the founder and open-source contributor of Mezgeb. Software engineer based in Addis Ababa.",
+  image: "/dagim.jpg",
+  x: "@dagim404",
   headline: ["Software", "Engineer"],
   caption:
     "Backend engineer focused on APIs, databases, and building reliable software.",
@@ -27,7 +35,7 @@ export const projects: Project[] = [
     title: "Mezgeb",
     description: "Open-source project under Atronsa",
     tag: "Live",
-    link: "https://mezgeb.com",
+    link: "https://mezgeb.io",
   },
   {
     title: "Atronsa",
@@ -133,4 +141,5 @@ export const socialLinks = [
   { name: "GitHub", url: "https://github.com/dagimgetaw" },
   { name: "LinkedIn", url: "https://linkedin.com/in/dagimgetaw" },
   { name: "Telegram", url: "https://t.me/dagimdev" },
+  { name: "X", url: "https://x.com/dagim404" },
 ];
